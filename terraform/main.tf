@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "docker" {
-host = "unix:///var/run/docker.sock"
+  host = "unix:///var/run/docker.sock"
 }
 
 resource "docker_network" "app_network" {
@@ -27,7 +27,7 @@ resource "docker_image" "php" {
 resource "docker_container" "php_fpm" {
   name  = "php-fpm"
   image = docker_image.php.image_id
-  
+
   networks_advanced {
     name = docker_network.app_network.name
   }
