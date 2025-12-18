@@ -58,3 +58,8 @@ Links to successful GitHub Actions runs:
 Terraform Workflow: [Link to successful terraform run]
 Ansible Workflow: [Link to successful ansible run]
 
+## Extra Features
+- **Security**: Nginx configured with security headers and version hiding.
+- **Performance**: Gzip compression enabled.
+- **Logging**: JSON logging format for better parsing.
+- **Backup**: Includes a `backup.sh` script with auto-rotation.

@@ -25,3 +25,9 @@
 - **Security**: Implement running containers as non-root users and enable HTTPS using Let's Encrypt or self-signed certificates.
 - **Monitoring**: Add a Prometheus exporter sidecar to scrape metrics from Nginx and PHP-FPM.
 - **Scalability**: Migrate from the Terraform Docker provider to a Kubernetes manifest (or Helm chart) or Docker Compose for easier local development experience without Terraform state management overhead.
+
+### 6. Bonus Improvements 
+- **Nginx Hardening**: Enabled `server_tokens off` and added security headers (`X-Frame-Options`, `X-XSS-Protection`) to follow best security practices.
+- **Performance**: Enabled `gzip` compression for text/json responses.
+- **Observability**: Configured Nginx logs in JSON format. This makes it easier to integrate with log aggregation systems (like ELK or Graylog).
+- **Automation**: Added a simple `backup.sh` script with rotation logic (keeps last 5 backups).
