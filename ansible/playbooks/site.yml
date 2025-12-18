@@ -1,5 +1,8 @@
-- name: Apply web role
-  hosts: all
-  become: true
+---
+- hosts: localhost
+  connection: local
+  vars:
+    app_env: "dev"
+    php_fpm_host: "php-fpm"
   roles:
     - web

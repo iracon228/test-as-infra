@@ -10,5 +10,5 @@ variable "host_port" {
 
 variable "app_env" {
   type    = string
-  default = "test"
+  default = "dev"
 }

@@ -1,42 +1,60 @@
-# Test: Nginx + PHP-FPM, Terraform, Ansible
+# System Administrator Infrastructure Task
 
-This repository is a **template** for completing the test assignment. Full description is in [INSTRUCTIONS.md](./INSTRUCTIONS.md).
+This repository contains the infrastructure code for deploying a minimal PHP application using Nginx + PHP-FPM, managed via Terraform and configured with Ansible.
 
-## What's already included
-- Directory structure for Terraform/Ansible.
-- Basic GitHub Actions workflows: `terraform.yml`, `ansible.yml`.
-- Template files for `web` role (Ansible) and minimal Terraform configs.
+## Project Structure
 
-## What the candidate needs to implement (briefly)
-1. **Terraform**: describe `nginx` and `php-fpm` containers (docker provider), network and volume, variables and outputs.
-2. **Ansible**: `web` role should deploy Nginx config, index.php, enable `nginx` and `php-fpm`, add logrotate.
-3. Clean up and complete workflows (fmt/validate/plan + ansible-lint), optionally add Molecule tests for the role.
-4. **README**: complete the steps below for running and testing (see "Local Run" section).
+- `ansible/` - Ansible playbooks and roles for generating configuration files.
+- `terraform/` - Terraform code to provision Docker infrastructure.
+- `.github/workflows/` - CI/CD pipelines for linting and validation.
+- `Decisions.md` - Architectural decisions and explanations.
 
----
+## Prerequisites
 
-## Local Run (to be filled after completion)
+- Docker
+- Terraform
+- Ansible
+
+## Deployment Guide
+
+### Step 1: Generate Configurations with Ansible
+Ansible is used to generate the necessary `nginx.conf` and `index.php` files based on templates.
+
 ```bash
-# example
+cd ansible
+ansible-playbook playbooks/site.yml
+```
+
+This will create a generated_config/ directory in the project root.
+
+### Step 2: Provision Infrastructure with Terraform
+
+Terraform uses the generated configurations and deploys the Docker containers.
+
+
+```bash
 cd terraform
 terraform init
-terraform apply -auto-approve
-
-cd ../ansible
-ansible-playbook -i inventory/containers.ini playbooks/site.yml
+terraform apply
 ```
 
-### Testing
+## Validation
+
+After a successful deployment, verify the application health check:
+
 ```bash
 curl http://localhost:8080/healthz
-# expected JSON:
-# {"status":"ok","service":"nginx","env":"dev"}
+```
+#### Expected Output:
+
+```JSON
+{"status":"ok","service":"nginx","env":"dev"}
 ```
 
-## CI/CD
-- **Actions** tab should be green: Terraform (fmt/validate/plan) and ansible-lint pass.
-- Attach screenshots or links to successful runs.
+## CI/CD Results
 
-## Useful Links
-- Full task description: [INSTRUCTIONS.md](./INSTRUCTIONS.md)
-- Solution rationale: `Decisions.md`
+Links to successful GitHub Actions runs:
+
+Terraform Workflow: [Link to successful terraform run]
+Ansible Workflow: [Link to successful ansible run]
+
