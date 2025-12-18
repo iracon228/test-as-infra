@@ -55,8 +55,9 @@ curl http://localhost:8080/healthz
 
 Links to successful GitHub Actions runs:
 
-Terraform Workflow: [Link to successful terraform run]
-Ansible Workflow: [Link to successful ansible run]
+[Terraform Workflow](https://github.com/iracon228/test-as-infra/actions/runs/20324905352)
+
+[Ansible Workflow](https://github.com/iracon228/test-as-infra/actions/runs/20324905349)
 
 ## Extra Features
 - **Security**: Nginx configured with security headers and version hiding.
