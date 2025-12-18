@@ -1,21 +1,43 @@
 ---
 - name: Ensure generated configs directory exists
   delegate_to: localhost
-  file:
+  ansible.builtin.file:      
     path: "{{ playbook_dir }}/../../generated_config"
     state: directory
     mode: '0755'
 
 - name: Generate Nginx configuration
   delegate_to: localhost
-  template:
+  ansible.builtin.template:  
     src: nginx.conf.j2
     dest: "{{ playbook_dir }}/../../generated_config/nginx.conf"
     mode: '0644'
 
 - name: Generate PHP index file
   delegate_to: localhost
-  template:
+  ansible.builtin.template: 
     src: index.php.j2
     dest: "{{ playbook_dir }}/../../generated_config/index.php"
+    mode: '0644'
+
+- name: Generate Logrotate config (demonstration)
+  delegate_to: localhost
+  ansible.builtin.copy:    
+    content: |
+      /var/log/nginx/*.log {
+          daily
+          missingok
+          rotate 14
+          compress
+          delaycompress
+          notifempty
+          create 0640 www-data adm
+          sharedscripts
+          postrotate
+              if [ -f /var/run/nginx.pid ]; then
+                  kill -USR1 `cat /var/run/nginx.pid`
+              fi
+          endscript
+      }
+    dest: "{{ playbook_dir }}/../../generated_config/nginx_logrotate"
     mode: '0644'
